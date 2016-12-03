@@ -1,0 +1,107 @@
+[
+  {
+    "source": "sam",
+    "target": "tully",
+    "weight": 3
+  },
+  {
+    "source": "sam",
+    "target": "pat",
+    "weight": 8
+  },
+  {
+    "source": "sam",
+    "target": "kim",
+    "weight": 2
+  },
+  {
+    "source": "sam",
+    "target": "pris",
+    "weight": 1
+  },
+  {
+    "source": "roy",
+    "target": "pris",
+    "weight": 5
+  },
+  {
+    "source": "roy",
+    "target": "sam",
+    "weight": 1
+  },
+  {
+    "source": "tully",
+    "target": "sam",
+    "weight": 1
+  },
+  {
+    "source": "tully",
+    "target": "pris",
+    "weight": 5
+  },
+  {
+    "source": "tully",
+    "target": "kim",
+    "weight": 3
+  },
+  {
+    "source": "tully",
+    "target": "pat",
+    "weight": 1
+  },
+  {
+    "source": "tully",
+    "target": "mo",
+    "weight": 3
+  },
+  {
+    "source": "kim",
+    "target": "pat",
+    "weight": 2
+  },
+  {
+    "source": "kim",
+    "target": "mo",
+    "weight": 1
+  },
+  {
+    "source": "mo",
+    "target": "tully",
+    "weight": 7
+  },
+  {
+    "source": "mo",
+    "target": "pat",
+    "weight": 1
+  },
+  {
+    "source": "mo",
+    "target": "sam",
+    "weight": 4
+  },
+  {
+    "source": "mo",
+    "target": "pris",
+    "weight": 1
+  },
+  {
+    "source": "pat",
+    "target": "sam",
+    "weight": 3
+  },
+  {
+    "source": "pat",
+    "target": "tully",
+    "weight": 1
+  },
+  {
+    "source": "pat",
+    "target": "kim",
+    "weight": 2
+  },
+  {
+    "source": "pat",
+    "target": "mo",
+    "weight": 5
+  }
+]

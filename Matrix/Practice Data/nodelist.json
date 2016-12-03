@@ -1,0 +1,37 @@
+[
+  {
+    "id": "sam",
+    "followers": 17,
+    "following": 500
+  },
+  {
+    "id": "roy",
+    "followers": 83,
+    "following": 80
+  },
+  {
+    "id": "pris",
+    "followers": 904,
+    "following": 15
+  },
+  {
+    "id": "tully",
+    "followers": 7,
+    "following": 5
+  },
+  {
+    "id": "kim",
+    "followers": 11,
+    "following": 50
+  },
+  {
+    "id": "mo",
+    "followers": 80,
+    "following": 85
+  },
+  {
+    "id": "pat",
+    "followers": 150,
+    "following": 300
+  }
+]
