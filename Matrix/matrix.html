@@ -38,8 +38,101 @@
 </style>
 <body onload="adjacency()">
 
+<form class="navbar-form navbar-right">
+    <div class="form-group navbar-right">
+        <select class="form-control" data-show-icon="true" id="selectPurpose" >
+            <option value="HW">Home To Work</option>
+            <option value="HH">Home To Home</option>
+            <option value="HO">Home To Other</option>
+            <option value="OW">Other To Work</option>
+            <option value="OH">Other To Home</option>
+            <option value="OO">Other To Other</option>
+            <option value="WW">Work To Work</option>
+            <option value="WH">Work To Home</option>
+            <option value="WO">Work To Other</option>
+        </select>
+    </div>
+</form>
+
+<form class="navbar-form navbar-right">
+    <div class="form-group navbar-right">
+        <select class="form-control" data-show-icon="true" id="selectClass" >
+            <option value="Short Term Visitor">Short Term Visitor</option>
+            <option value="Home Worker">Home Worker</option>
+            <option value="Inbound Commuter">Inbound Commuter</option>
+            <option value="Outbound Commuter">Outbound Commuter</option>
+            <option value="Resident Worker">Resident Worker</option>
+            <option value="Long Term Visitor">Long Term Visitor</option>
+        </select>
+    </div>
+</form>
+
+<form class="navbar-form navbar-right">
+    <div class="form-group navbar-right">
+        <select class="form-control" data-show-icon="true" id="selectTime" >
+            <option value="H04:H05">H04:H05</option>
+            <option value="H05:H06">H05:H06</option>
+            <option value="H06:H07">H06:H07</option>
+            <option value="H07:H08">H07:H08</option>
+            <option value="H08:H09">H08:H09</option>
+            <option value="H09:H10">H09:H10</option>
+            <option value="H10:H11">H10:H11</option>
+            <option value="H11:H12">H11:H12</option>
+            <option value="H12:H13">H12:H13</option>
+            <option value="H13:H14">H13:H14</option>
+            <option value="H14:H15">H14:H15</option>
+            <option value="H15:H16">H15:H16</option>
+            <option value="H16:H17">H16:H17</option>
+            <option value="H17:H18">H17:H18</option>
+            <option value="H18:H19">H18:H19</option>
+            <option value="H19:H20">H19:H20</option>
+            <option value="H20:H21">H20:H21</option>
+            <option value="H21:H22">H21:H22</option>
+            <option value="H22:H23">H22:H23</option>
+            <option value="H23:H24">H23:H24</option>
+        </select>
+    </div>
+</form>
+
+<form class="navbar-form navbar-right">
+    <div class="form-group navbar-right">
+        <select class="form-control" data-show-icon="true" id="selectDay" >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+        </select>
+    </div>
+</form>
+
 <div id="vizcontainer">
-    <svg style="width:2000px;height:2000px;border:1px lightgray solid;" />
+    <svg style="width:2400px;height:2400px;border:1px lightgray solid;" />
 </div>
 <footer>
     <script>
@@ -54,7 +147,7 @@
 
         function adjacency(){
             d3.queue()
-                .defer(d3.json, "edgelist_1.json")
+                .defer(d3.json, "nodelist_1.json")
                 .await(function(error, file1) { createAdjacencyMatrix(file1); });
 
             function filterByID(obj)
@@ -63,14 +156,6 @@
 
                 if (obj.Purpose == "HO" && obj.Subscriber_Class == "Home Worker" && obj.Time_of_Day == "H04:H05")
                 {
-                    if(!arr.includes(obj.Origin_Zone))
-                    {
-                        arr.push(obj)
-                    }
-                    elseif (!arr.includes(obj.Destination_Zone))
-                    {
-
-                    }
                     return true;
                 }
                 else
@@ -79,35 +164,42 @@
                 }
             }
 
-            function findAllNodes()
-            {
-
-            }
-
             function createAdjacencyMatrix(edgelist)
             {
-                var factor = 10;
+                var factor = 9;
                 var edgeHash = {};
+                var nodeList = [];
 
                 var edgeFiltered = edgelist.filter(filterByID)
-                edgeFiltered.sort(function(a, b)
-                {
-                    return a.Origin_Zone-b.Origin_Zone
-                })
 
                 for (x in edgeFiltered)
                 {
                     var zone = edgeFiltered[x].Origin_Zone + "-" + edgeFiltered[x].Destination_Zone;
                     edgeHash[zone] = edgeFiltered[x];
+
+                    if(!nodeList.includes(edgeFiltered[x].Origin_Zone))
+                    {
+                        nodeList.push(edgeFiltered[x].Origin_Zone)
+                    }
+
+                    if(!nodeList.includes(edgeFiltered[x].Destination_Zone))
+                    {
+                        nodeList.push(edgeFiltered[x].Destination_Zone)
+                    }
                 }
+
+                nodeList.sort(function(a, b)
+                {
+                    return a-b
+                })
 
                 matrix = [];
                 //create all possible edges
-                for (a in edgeFiltered)
+                for (a in nodeList)
                 {
-                    for (b in edgeFiltered)
+                    for (b in nodeList)
                     {
-                        var grid = {zone: edgeFiltered[a].Origin_Zone + "-" + edgeFiltered[b].Destination_Zone, x: b, y: a, count: 0};
+                        var grid = {zone: nodeList[a]+ "-" + nodeList[b], x: b, y: a, count: 0};
                         if (edgeHash[grid.zone]) {
                             grid.count = edgeHash[grid.zone].Count;
                         }
@@ -117,7 +209,7 @@
 
                 d3.select("svg")
                     .append("g")
-                    .attr("transform", "translate(50,50)")
+                    .attr("transform", "translate(35,35)")
                     .attr("id", "adjacencyG")
                     .selectAll("rect")
                     .data(matrix)
@@ -138,8 +230,8 @@
                     .on("mouseover", gridOver)
 
 
-                var scaleSize = edgeFiltered.length * factor;
-                var nameScale = d3.scalePoint().domain(edgeFiltered.map(function (el) {return el.Origin_Zone})).range([0,scaleSize],1);
+                var scaleSize = nodeList.length * factor;
+                var nameScale = d3.scalePoint().domain(nodeList.map(function (el) {return el})).range([0,scaleSize],1);
 
                 xAxis = d3.axisTop().scale(nameScale).tickSize(4);
                 yAxis = d3.axisLeft(nameScale).tickSize(4);
@@ -153,8 +245,8 @@
                         .duration(200)
                         .style("opacity", .9);
                     div.text(d.zone + " " + d.count)
-                        .style("left", (d3.event.pageX) + "px")
-                        .style("top", (d3.event.pageY - 28) + "px");
+                        .style("left", (d3.event.pageX + 10) + "px")
+                        .style("top", (d3.event.pageY - 10) + "px");
                 }
             }
         }
