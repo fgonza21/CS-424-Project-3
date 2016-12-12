@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <meta charset="utf-8">
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+<script src="http://d3js.org/d3-queue.v3.min.js" type="text/javascript"></script>
+
+<style>
+    .tick line {
+        shape-rendering: crispEdges;
+        stroke: #000;
+    }
+
+    line.minor  {
+        stroke: #777;
+        stroke-dasharray: 2,2;
+    }
+
+    path.domain {
+        fill: none;
+        stroke: black;
+    }
+
+    /* Style for Custom Tooltip */
+    div.tooltip {
+        position: absolute;
+        text-align: center;
+        width: 60px;
+        height: 28px;
+        padding: 2px;
+        font: 12px sans-serif;
+        background: white;
+        border: 0px;
+        border-radius: 8px;
+        pointer-events: none;
+    }
+
+</style>
+<body onload="adjacency()">
+
+<form>
+    <div>
+        <select id="selectPurpose" >
+            <option value="HW">Home To Work</option>
+            <option value="HH">Home To Home</option>
+            <option value="HO">Home To Other</option>
+            <option value="OW">Other To Work</option>
+            <option value="OH">Other To Home</option>
+            <option value="OO">Other To Other</option>
+            <option value="WW">Work To Work</option>
+            <option value="WH">Work To Home</option>
+            <option value="WO">Work To Other</option>
+        </select>
+    </div>
+</form>
+
+<form>
+    <div>
+        <select id="selectClass" >
+            <option value="Short Term Visitor">Short Term Visitor</option>
+            <option value="Home Worker">Home Worker</option>
+            <option value="Inbound Commuter">Inbound Commuter</option>
+            <option value="Outbound Commuter">Outbound Commuter</option>
+            <option value="Resident Worker">Resident Worker</option>
+            <option value="Long Term Visitor">Long Term Visitor</option>
+        </select>
+    </div>
+</form>
+
+<form>
+    <div>
+        <select id="selectTime" >
+            <option value="H00:H01">H00:H01</option>
+            <option value="H01:H02">H01:H02</option>
+            <option value="H02:H03">H02:H03</option>
+            <option value="H03:H04">H03:H04</option>
+            <option value="H04:H05">H04:H05</option>
+            <option value="H05:H06">H05:H06</option>
+            <option value="H06:H07">H06:H07</option>
+            <option value="H07:H08">H07:H08</option>
+            <option value="H08:H09">H08:H09</option>
+            <option value="H09:H10">H09:H10</option>
+            <option value="H10:H11">H10:H11</option>
+            <option value="H11:H12">H11:H12</option>
+            <option value="H12:H13">H12:H13</option>
+            <option value="H13:H14">H13:H14</option>
+            <option value="H14:H15">H14:H15</option>
+            <option value="H15:H16">H15:H16</option>
+            <option value="H16:H17">H16:H17</option>
+            <option value="H17:H18">H17:H18</option>
+            <option value="H18:H19">H18:H19</option>
+            <option value="H19:H20">H19:H20</option>
+            <option value="H20:H21">H20:H21</option>
+            <option value="H21:H22">H21:H22</option>
+            <option value="H22:H23">H22:H23</option>
+            <option value="H23:H24">H23:H24</option>
+            <option value="H24:H00">H24:H00</option>
+        </select>
+    </div>
+</form>
+
+<form>
+    <div>
+        <select id="selectDay" >
+            <option value="nodelist_1.json">1</option>
+            <option value="nodelist_2.json">2</option>
+            <option value="nodelist_3.json">3</option>
+            <option value="nodelist_4.json">4</option>
+            <option value="nodelist_5.json">5</option>
+            <option value="nodelist_6.json">6</option>
+            <option value="nodelist_7.json">7</option>
+            <option value="nodelist_8.json">8</option>
+            <option value="nodelist_9.json">9</option>
+            <option value="nodelist_10.json">10</option>
+            <option value="nodelist_11.json">11</option>
+            <option value="nodelist_12.json">12</option>
+            <option value="nodelist_13.json">13</option>
+            <option value="nodelist_14.json">14</option>
+            <option value="nodelist_15.json">15</option>
+            <option value="nodelist_16.json">16</option>
+            <option value="nodelist_17.json">17</option>
+            <option value="nodelist_18.json">18</option>
+            <option value="nodelist_19.json">19</option>
+            <option value="nodelist_20.json">20</option>
+            <option value="nodelist_21.json">21</option>
+            <option value="nodelist_22.json">22</option>
+            <option value="nodelist_23.json">23</option>
+            <option value="nodelist_24.json">24</option>
+            <option value="nodelist_25.json">25</option>
+            <option value="nodelist_26.json">26</option>
+            <option value="nodelist_27.json">27</option>
+            <option value="nodelist_28.json">28</option>
+            <option value="nodelist_29.json">29</option>
+            <option value="nodelist_30.json">30</option>
+        </select>
+    </div>
+</form>
+
+<div id="vizcontainer">
+    <svg style="width:2400px;height:2400px;border:1px lightgray solid;" />
+</div>
+<footer>
+    <script>
+
+        var dayDrop = document.getElementById("selectDay");
+        var timeDrop = document.getElementById("selectTime");
+        var classDrop = document.getElementById("selectClass");
+        var purposeDrop = document.getElementById("selectPurpose");
+
+        var usrTime = timeDrop.options[timeDrop.selectedIndex].value;
+        var usrDay = dayDrop.options[dayDrop.selectedIndex].value;
+        var usrPurpose = purposeDrop.options[purposeDrop.selectedIndex].value;
+        var usrClass = classDrop.options[classDrop.selectedIndex].value;
+
+        // Append Div for tooltip to SVG
+        var div = d3.select("body")
+            .append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        var arr = []
+
+        function adjacency()
+        {
+            d3.queue()
+                .defer(d3.json, usrDay)
+                .await(function(error, file1) { createAdjacencyMatrix(file1); });
+
+            function filterByID(obj)
+            {
+                if (obj.Purpose == usrPurpose && obj.Subscriber_Class == usrClass && obj.Time_of_Day == usrTime)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            function createAdjacencyMatrix(edgelist)
+            {
+                var factor = 9;
+                var edgeHash = {};
+                var nodeList = [];
+
+                var edgeFiltered = edgelist.filter(filterByID)
+
+                for (x in edgeFiltered)
+                {
+                    var zone = edgeFiltered[x].Origin_Zone + "-" + edgeFiltered[x].Destination_Zone;
+                    edgeHash[zone] = edgeFiltered[x];
+
+                    if(!nodeList.includes(edgeFiltered[x].Origin_Zone))
+                    {
+                        nodeList.push(edgeFiltered[x].Origin_Zone)
+                    }
+
+                    if(!nodeList.includes(edgeFiltered[x].Destination_Zone))
+                    {
+                        nodeList.push(edgeFiltered[x].Destination_Zone)
+                    }
+                }
+
+                nodeList.sort(function(a, b)
+                {
+                    return a-b
+                })
+
+                matrix = [];
+                //create all possible edges
+                for (a in nodeList)
+                {
+                    for (b in nodeList)
+                    {
+                        var grid = {zone: nodeList[a]+ "-" + nodeList[b], x: b, y: a, count: 0};
+                        if (edgeHash[grid.zone]) {
+                            grid.count = edgeHash[grid.zone].Count;
+                        }
+                        matrix.push(grid);
+
+                        grid = {zone: nodeList[b]+ "-" + nodeList[a], x: a, y: b, count: 0};
+                        if (edgeHash[grid.zone]) {
+                            grid.count = edgeHash[grid.zone].Count;
+                        }
+                        matrix.push(grid);
+                    }
+                }
+
+                d3.select("svg")
+                    .append("g")
+                    .attr("transform", "translate(35,35)")
+                    .attr("id", "adjacencyG")
+                    .selectAll("rect")
+                    .data(matrix)
+                    .enter()
+                    .append("rect")
+                    .attr("width", factor)
+                    .attr("height", factor)
+                    .attr("x", function (d) {
+                        return d.x * factor})
+                    .attr("y", function (d) {
+                        return d.y * factor})
+                    .style("stroke", "grey")
+                    .style("stroke-width", "1px")
+                    .style("fill", "red")
+                    .style("fill-opacity", function (d)
+                    {
+                        return d.count * .2
+                    })
+                    .on("mouseover", gridOver)
+
+
+                var scaleSize = nodeList.length * factor;
+                var nameScale = d3.scalePoint().domain(nodeList.map(function (el) {return el})).range([0,scaleSize],1);
+
+                xAxis = d3.axisTop().scale(nameScale).tickSize(4);
+                yAxis = d3.axisLeft(nameScale).tickSize(4);
+                d3.select("#adjacencyG").append("g").call(xAxis).selectAll("text").style("text-anchor", "end").attr("transform", "translate(-10,-10) rotate(90)");
+                d3.select("#adjacencyG").append("g").call(yAxis);
+
+                function gridOver(d,i)
+                {
+                    d3.selectAll("rect").style("stroke-width", function (p) {return p.x == d.x || p.y == d.y ? "3px" : "1px"})
+                    div.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                    div.text(d.zone + " " + d.count)
+                        .style("left", (d3.event.pageX + 10) + "px")
+                        .style("top", (d3.event.pageY - 10) + "px");
+                }
+            }
+        }
+
+        function change()
+        {
+            d3.selectAll("rect").remove();
+            d3.selectAll("#adjacencyG").remove();
+
+            usrTime = timeDrop.options[timeDrop.selectedIndex].value;
+            usrDay = dayDrop.options[dayDrop.selectedIndex].value;
+            usrPurpose = purposeDrop.options[purposeDrop.selectedIndex].value;
+            usrClass = classDrop.options[classDrop.selectedIndex].value;
+
+            adjacency();
+        }
+
+        //runs change function on year select
+        d3.selectAll("select").on("change", change);
+    </script>
+</footer>
+</body>
+</html>
