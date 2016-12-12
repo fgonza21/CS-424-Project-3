@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <meta charset="utf-8">
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	
+    <style type="text/css">
+    .visheader {
+      font-family: times, Times New Roman, times-roman, georgia, serif;
+      color: #444;
+      margin: 0;
+      padding: 0px 0px 6px 0px;
+      font-size: 51px;
+      line-height: 44px;
+      letter-spacing: -2px;
+      font-weight: bold;
+      text-align:center;
+    }
+	/*bootstrap stuff*/
+    .white {
+        color: #fff;
+    }
+    .calendarIcon {
+        margin-top: 14px;
+    }
+    .glyphicon {
+        font-size: 20px;
+    }
+    </style>
+    </head>
+
+<script src="http://d3js.org/d3.v4.min.js"></script>
+
+<body data-spy="scroll" data-target=".navbar-collapse">
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+            <a href="" class="navbar-brand">Project 3: Orlando Traffic</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Home</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <div class="form-group navbar-right">
+                        <select class="form-control"  data-show-icon="true" id="selectDay" >
+                            <option value="_01">01</option>
+							<option value="_02">02</option>
+							<option value="_03">03</option>
+							<option value="_04">04</option>
+							<option value="_05">05</option>
+							<option value="_06">06</option>
+							<option value="_07">07</option>
+							<option value="_08">08</option>
+							<option value="_09">09</option>
+							<option value="_10">10</option>
+							<option value="_11">11</option>
+							<option value="_12">12</option>
+							<option value="_13">13</option>
+							<option value="_14">14</option>
+							<option value="_15">15</option>
+							<option value="_16">16</option>
+							<option value="_17">17</option>
+							<option value="_18">18</option>
+							<option value="_19">19</option>
+							<option value="_20">20</option>
+							<option value="_21">21</option>
+							<option value="_22">22</option>
+							<option value="_23">23</option>
+							<option value="_24">24</option>
+							<option value="_25">25</option>
+							<option value="_26">26</option>
+							<option value="_27">27</option>
+							<option value="_28">28</option>
+							<option value="_29">29</option>
+							<option value="_30">30</option>
+                        </select>
+                </div>
+            </form>
+            <form class="navbar-form navbar-right white calendarIcon">
+                <div><span class="glyphicon glyphicon-calendar navbar-right"></span></div>
+            </form>
+        </div>
+      </div> 
+</div> 
+
+<div class="container" id="vis">
+    <div class="visheader">
+        <h1>&nbsp </h1>
+			Most Traveled Destination Zone
+    </div>
+</div>
+
+<script>
+var width = 1200,
+    height = 600;
+var svg= d3.select("#vis").append("svg").attr("width", width)
+      .attr("height", height)
+	  .append("g");
+   
+
+function createBarChart() {
+	// set the dimensions and margins of the graph
+	var margin = {top:40, left:60, bottom:40, right:80},
+		chartWidth = width - margin.left - margin.right,
+		chartHeight = height - margin.top - margin.bottom;
+
+	// set the ranges
+	var x = d3.scaleBand()
+          .range([0, chartWidth])
+          .padding(.1);
+	var y = d3.scaleLinear()
+          .range([chartHeight, 0]);
+		  
+	svg   
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+		.attr("align", "center");
+
+var prefix = "Destination";
+var suffix = ".csv";	   
+var e = document.getElementById("selectDay");
+var usrDay = e.options[e.selectedIndex].value;
+var filename =  prefix + usrDay + suffix;
+
+var t = d3.transition()
+            .duration(2000)
+            .ease(d3.easeLinear)
+
+// get the data
+d3.csv(filename, function(error, data) {
+  if (error) throw error;
+
+  // format the data
+  data.forEach(function(d) {
+    d.Count = +d.Count;
+  });
+
+  // Scale the range of the data in the domains
+  x.domain(data.map(function(d) { return d.Destination_Zone; }));
+  y.domain([0, d3.max(data, function(d) { return d.Count; })]);
+
+  // append the rectangles for the bar chart
+  var bar = svg.selectAll(".bar").data(data)
+  var newbar = bar.enter().append("rect").attr("class", "bar")
+     
+    newbar
+      .attr("x", function(d) { return x(d.Destination_Zone); })
+      .attr("width", x.bandwidth())
+      .attr("y", function(d) { return y(d.Count); })
+	  .attr("fill", "RED")
+	  .attr("height", 0)
+	  
+	newbar.transition(t)
+      .attr("height", function(d) { return chartHeight - y(d.Count); })
+	  
+  // add the x Axis
+  svg.append("g")
+      .attr("transform", "translate(0," + chartHeight + ")")
+      .call(d3.axisBottom(x));
+  svg.append("text")
+      .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+      .attr("transform", "translate("+ (width/2.2) +","+(height - 40)+")")  // centre below axis
+	  .attr("font-size", "20px")
+	  .text("Orlando Traffic Area Zone");
+
+  // add the y Axis
+  svg.append("g")
+      .call(d3.axisLeft(y));
+
+	});
+}
+function change() {
+    svg.selectAll("rect").remove();
+	svg.selectAll("axisLayer").remove();
+	svg.selectAll("chartLayer").remove();
+	svg.selectAll("g").remove();
+	createBarChart();
+	
+}
+//runs change function on day select
+d3.selectAll("select").on("change", change);
+
+createBarChart();
+
+</script>
+</body>
+ 
