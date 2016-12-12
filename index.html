@@ -162,7 +162,7 @@
       
         <div class="navbar-header">
         
-            <a href="" class="navbar-brand">Project 3</a>
+            <a href="" class="navbar-brand">Project 3: Orlando Traffic</a>
 
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             
@@ -180,9 +180,9 @@
 
             <ul class="nav navbar-nav">
           
-                <li><a href="#vis1">First Challenge</a></li>
+                <li><a href="Matrix/matrix.html">Matrix View</a></li>
                   
-                <li><a href=matrix.html>Second Challenge</a></li>
+                <li><a href="bar.html">Top 25 Analysis</a></li>
 
 
             </ul>
@@ -335,7 +335,7 @@ function contains(array, search) {
   return false;
 }
 
-d3.json("archive.zip.geojson", function(error, data) {
+d3.json("Project3.json", function(error, data) {
 
   var pathing = g.selectAll("path")
     .data(data.features)
