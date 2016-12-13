@@ -13,4 +13,7 @@ https://drive.google.com/a/uic.edu/file/d/0B-3buMM190ooOGQ5cVU3MEhqRFE/view?usp=
 
 Instructions: Simply place the html and data files into any webserver application.
 
-We all helped each other with each visualization but primarly the map was Mario, matrix Randy and bargraph Francisco.
+We all helped each other with each visualization but primarly the map was Mario, matrix Randy and bargraph/arc map Francisco.
+
+Scrapped arc map url:
+http://fgonza21.people.uic.edu/CS424/Project3/arc.html
