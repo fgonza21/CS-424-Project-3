@@ -51,8 +51,8 @@
     /* Style for Custom Tooltip */
     div.tooltip {
         position: absolute;
-        text-align: center;
-        width: 60px;
+        text-align: left;
+        width: 100px;
         height: 28px;
         padding: 2px;
         font: 12px sans-serif;
@@ -60,6 +60,7 @@
         border: 0px;
         border-radius: 8px;
         pointer-events: none;
+	white-space: pre-line;
     }
 
 </style>
@@ -337,7 +338,7 @@
                     div.transition()
                         .duration(200)
                         .style("opacity", .9);
-                    div.text(d.zone + " " + d.count)
+                    div.text("Trip: " + d.zone + " Count: " + d.count)
                         .style("left", (d3.event.pageX + 10) + "px")
                         .style("top", (d3.event.pageY - 10) + "px");
                 }
