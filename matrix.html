@@ -98,7 +98,7 @@
             <form class="navbar-form navbar-right">
                 <div class="form-group navbar-right">
                     <select class="form-control" data-show-icon="true" id="selectDay" >
-                        <option value="nodelist_1.json">2014/04/01_Tu</option>
+                        <option value="nodelist_1.json" selected="selected">2014/04/01_Tu</option>
                         <option value="nodelist_2.json">2014/04/02_We</option>
                         <option value="nodelist_3.json">2014/04/03_Th</option>
                         <option value="nodelist_4.json">2014/04/04_Fr</option>
@@ -141,7 +141,7 @@
                         <option value="H05:H06">H05:H06</option>
                         <option value="H06:H07">H06:H07</option>
                         <option value="H07:H08">H07:H08</option>
-                        <option value="H08:H09">H08:H09</option>
+                        <option value="H08:H09" selected="selected">H08:H09</option>
                         <option value="H09:H10">H09:H10</option>
                         <option value="H10:H11">H10:H11</option>
                         <option value="H11:H12">H11:H12</option>
@@ -165,7 +165,7 @@
                     <select class="form-control" data-show-icon="true" id="selectClass" >
                         <option value="Short Term Visitor">Short Term Visitor</option>
                         <option value="Home Worker">Home Worker</option>
-                        <option value="Inbound Commuter">Inbound Commuter</option>
+                        <option value="Inbound Commuter" selected="selected">Inbound Commuter</option>
                         <option value="Outbound Commuter">Outbound Commuter</option>
                         <option value="Resident Worker">Resident Worker</option>
                         <option value="Long Term Visitor">Long Term Visitor</option>
@@ -182,7 +182,7 @@
                         <option value="OO">Other To Other</option>
                         <option value="WW">Work To Work</option>
                         <option value="WH">Work To Home</option>
-                        <option value="WO">Work To Other</option>
+                        <option value="WO" selected="selected">Work To Other</option>
                     </select>
                 </div>
 
@@ -213,11 +213,10 @@
         var classDrop = document.getElementById("selectClass");
         var purposeDrop = document.getElementById("selectPurpose");
 
-        // Random Starting Matrix
-        var usrTime = "H08:H09";
-        var usrDay = "nodelist_1.json";
-        var usrPurpose = "WO";
-        var usrClass = "Inbound Commuter";
+        usrTime = timeDrop.options[timeDrop.selectedIndex].value;
+        usrDay = dayDrop.options[dayDrop.selectedIndex].value;
+        usrPurpose = purposeDrop.options[purposeDrop.selectedIndex].value;
+        usrClass = classDrop.options[classDrop.selectedIndex].value;
 
         // Append Div for tooltip to SVG
         var div = d3.select("body")
