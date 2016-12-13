@@ -54,7 +54,7 @@
     }
 
 </style>
-<body onload="adjacency()">
+<body onload="adjacency()" data-spy="scroll" data-target=".navbar-collapse">
 
 <div class="navbar navbar-inverse navbar-fixed-top">
 
@@ -204,10 +204,11 @@
         var classDrop = document.getElementById("selectClass");
         var purposeDrop = document.getElementById("selectPurpose");
 
-        var usrTime = timeDrop.options[timeDrop.selectedIndex].value;
-        var usrDay = dayDrop.options[dayDrop.selectedIndex].value;
-        var usrPurpose = purposeDrop.options[purposeDrop.selectedIndex].value;
-        var usrClass = classDrop.options[classDrop.selectedIndex].value;
+        // Random Starting Matrix
+        var usrTime = "H08:H09";
+        var usrDay = "nodelist_1.json";
+        var usrPurpose = "WO";
+        var usrClass = "Inbound Commuter";
 
         // Append Div for tooltip to SVG
         var div = d3.select("body")
@@ -284,29 +285,35 @@
                     }
                 }
 
-                d3.select("svg")
-                    .append("g")
-                    .attr("transform", "translate(35,35)")
-                    .attr("id", "adjacencyG")
-                    .selectAll("rect")
-                    .data(matrix)
-                    .enter()
-                    .append("rect")
-                    .attr("width", factor)
-                    .attr("height", factor)
-                    .attr("x", function (d) {
-                        return d.x * factor})
-                    .attr("y", function (d) {
-                        return d.y * factor})
-                    .style("stroke", "grey")
-                    .style("stroke-width", "1px")
-                    .style("fill", "red")
-                    .style("fill-opacity", function (d)
-                    {
-                        return d.count * .2
-                    })
-                    .on("mouseover", gridOver)
+                if(nodeList.length != 0)
+                {
+                    d3.select("svg")
+                        .append("g")
+                        .attr("transform", "translate(100,100)")
+                        .attr("id", "adjacencyG")
+                        .selectAll("rect")
+                        .data(matrix)
+                        .enter()
+                        .append("rect")
+                        .attr("width", factor)
+                        .attr("height", factor)
+                        .attr("x", function (d) {
+                            return d.x * factor})
+                        .attr("y", function (d) {
+                            return d.y * factor})
+                        .style("stroke", "grey")
+                        .style("stroke-width", "1px")
+                        .style("fill", "red")
+                        .style("fill-opacity", function (d)
+                        {
+                            return d.count * .2
+                        })
+                        .on("mouseover", gridOver)
+                }
+                else
+                {
 
+                }
 
                 var scaleSize = nodeList.length * factor;
                 var nameScale = d3.scalePoint().domain(nodeList.map(function (el) {return el})).range([0,scaleSize],1);
