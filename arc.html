@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<body>
+  <script src="//d3js.org/d3.v4.min.js" charset="utf-8"></script>
+  <script> 
+	var width = 1400;
+	var height = 1200;
+
+	var projection = d3.geoAlbers()
+        .translate([width/2, height/2])
+        .scale([88000])
+        .rotate([81.37923649999999,0])
+        .center([0,28.5383355]);
+
+    //Define path generator
+    var path = d3.geoPath()
+      .projection(projection);
+
+	var svg = d3.select("body")
+		.append("svg")
+		.attr("width", width)
+		.attr("height", height)
+
+	// Append Div for tooltip to SVG
+    var div = d3.select("body")
+        .append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+	var g = svg.append("g");
+	
+	var prefix = "trip_leg_matrix_2014_04_";
+	var suffix = "_DDP.csv";
+	var filename = ""
+	
+	d3.json("Project3.json", function(error, data) {
+
+	var pathing = g.selectAll("path")
+		.data(data.features)
+		.enter()
+		.append("path")
+		.attr("d", path)
+		// adding an id attribute so I can select paths by thier id, requires an underscore at the beginning for some reason 
+		.attr("id", function (d) {
+		return "_" + d.properties.TAZ_ID; 
+		})
+		.style("fill", "grey")
+		.style("stroke", "#fff")
+		.style("stroke-width", "1")
+		.call(d3.zoom().on("zoom", function() {
+			g.attr("transform", d3.event.transform)
+		}));
+		
+	for(var i = 1; i < 31; i++){
+		if(i < 10){
+			filename = prefix + "0" + i.toString() + suffix;
+			//console.log(filename);
+		}
+		else{
+			filename = prefix + i.toString() + suffix;
+			//console.log(filename);
+		}
+		d3.csv(filename, function (csvdata){
+			csvdata.forEach(function(d){
+				var origin = path.centroid(d3.select("path#_"+d.Origin_Zone).datum())
+				var x1 = origin[0]
+				var y1 = origin[1]
+				var destination = path.centroid(d3.select("path#_"+d.Destination_Zone).datum())
+				var x2 = destination[0]
+				var y2 = destination[1]
+				var line = g.append("path")
+					.attr("d", function(c) {
+						var dx = Math.abs(x1 - x2),
+							dy = Math.abs(y1 - y2),
+							dr = Math.sqrt(dx * dx + dy * dy);
+						return "M" + x1 + "," + y1 + "A" + dr + "," + dr + " 0 0,1 " + x2 + "," + y2;
+						})
+					.style("stroke", "red")
+					.style("stroke-width", 3)
+					.style("fill", "none");
+
+				anim();
+			})
+		})
+	}	
+		
+	function anim() {
+        line.transition()
+			.duration(5000)
+			.attrTween("stroke-dasharray", function() {
+				var len = this.getTotalLength();
+				return function(t) {
+					return (d3.interpolateString("0," + len, len + ",0"))(t)
+				};
+			})
+			d3.select(this).remove();
+		}
+	});
+</script>
