@@ -56,107 +56,146 @@
 </style>
 <body onload="adjacency()">
 
-<form>
-    <div>
-        <select id="selectPurpose" >
-            <option value="HW">Home To Work</option>
-            <option value="HH">Home To Home</option>
-            <option value="HO">Home To Other</option>
-            <option value="OW">Other To Work</option>
-            <option value="OH">Other To Home</option>
-            <option value="OO">Other To Other</option>
-            <option value="WW">Work To Work</option>
-            <option value="WH">Work To Home</option>
-            <option value="WO">Work To Other</option>
-        </select>
-    </div>
-</form>
+<div class="navbar navbar-inverse navbar-fixed-top">
 
-<form>
-    <div>
-        <select id="selectClass" >
-            <option value="Short Term Visitor">Short Term Visitor</option>
-            <option value="Home Worker">Home Worker</option>
-            <option value="Inbound Commuter">Inbound Commuter</option>
-            <option value="Outbound Commuter">Outbound Commuter</option>
-            <option value="Resident Worker">Resident Worker</option>
-            <option value="Long Term Visitor">Long Term Visitor</option>
-        </select>
-    </div>
-</form>
+    <div class="container">
 
-<form>
-    <div>
-        <select id="selectTime" >
-            <option value="H00:H01">H00:H01</option>
-            <option value="H01:H02">H01:H02</option>
-            <option value="H02:H03">H02:H03</option>
-            <option value="H03:H04">H03:H04</option>
-            <option value="H04:H05">H04:H05</option>
-            <option value="H05:H06">H05:H06</option>
-            <option value="H06:H07">H06:H07</option>
-            <option value="H07:H08">H07:H08</option>
-            <option value="H08:H09">H08:H09</option>
-            <option value="H09:H10">H09:H10</option>
-            <option value="H10:H11">H10:H11</option>
-            <option value="H11:H12">H11:H12</option>
-            <option value="H12:H13">H12:H13</option>
-            <option value="H13:H14">H13:H14</option>
-            <option value="H14:H15">H14:H15</option>
-            <option value="H15:H16">H15:H16</option>
-            <option value="H16:H17">H16:H17</option>
-            <option value="H17:H18">H17:H18</option>
-            <option value="H18:H19">H18:H19</option>
-            <option value="H19:H20">H19:H20</option>
-            <option value="H20:H21">H20:H21</option>
-            <option value="H21:H22">H21:H22</option>
-            <option value="H22:H23">H22:H23</option>
-            <option value="H23:H24">H23:H24</option>
-            <option value="H24:H00">H24:H00</option>
-        </select>
-    </div>
-</form>
+        <div class="navbar-header">
 
-<form>
-    <div>
-        <select id="selectDay" >
-            <option value="nodelist_1.json">1</option>
-            <option value="nodelist_2.json">2</option>
-            <option value="nodelist_3.json">3</option>
-            <option value="nodelist_4.json">4</option>
-            <option value="nodelist_5.json">5</option>
-            <option value="nodelist_6.json">6</option>
-            <option value="nodelist_7.json">7</option>
-            <option value="nodelist_8.json">8</option>
-            <option value="nodelist_9.json">9</option>
-            <option value="nodelist_10.json">10</option>
-            <option value="nodelist_11.json">11</option>
-            <option value="nodelist_12.json">12</option>
-            <option value="nodelist_13.json">13</option>
-            <option value="nodelist_14.json">14</option>
-            <option value="nodelist_15.json">15</option>
-            <option value="nodelist_16.json">16</option>
-            <option value="nodelist_17.json">17</option>
-            <option value="nodelist_18.json">18</option>
-            <option value="nodelist_19.json">19</option>
-            <option value="nodelist_20.json">20</option>
-            <option value="nodelist_21.json">21</option>
-            <option value="nodelist_22.json">22</option>
-            <option value="nodelist_23.json">23</option>
-            <option value="nodelist_24.json">24</option>
-            <option value="nodelist_25.json">25</option>
-            <option value="nodelist_26.json">26</option>
-            <option value="nodelist_27.json">27</option>
-            <option value="nodelist_28.json">28</option>
-            <option value="nodelist_29.json">29</option>
-            <option value="nodelist_30.json">30</option>
-        </select>
+            <a href="index.html" class="navbar-brand">Project 3: Orlando Traffic</a>
+
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+
+                <span class="sr-only">Toggle navigation</span>
+
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+
+            </button>
+
+        </div>
+
+        <div class="collapse navbar-collapse">
+
+            <ul class="nav navbar-nav">
+
+                <li><a href="index.html">Map</a></li>
+
+                <li><a href="bar.html">Top 25 Analysis</a></li>
+
+            </ul>
+
+            <form class="navbar-form navbar-right">
+                <div class="form-group navbar-right">
+                    <select class="form-control" data-show-icon="true" id="selectDay" >
+                        <option value="nodelist_1.json">2014/04/01_Tu</option>
+                        <option value="nodelist_2.json">2014/04/02_We</option>
+                        <option value="nodelist_3.json">2014/04/03_Th</option>
+                        <option value="nodelist_4.json">2014/04/04_Fr</option>
+                        <option value="nodelist_5.json">2014/04/05_Sa</option>
+                        <option value="nodelist_6.json">2014/04/06_Su</option>
+                        <option value="nodelist_7.json">2014/04/07_Mo</option>
+                        <option value="nodelist_8.json">2014/04/08_Tu</option>
+                        <option value="nodelist_9.json">2014/04/09_We</option>
+                        <option value="nodelist_10.json">2014/04/10_Th</option>
+                        <option value="nodelist_11.json">2014/04/11_Fr</option>
+                        <option value="nodelist_12.json">2014/04/12_Sa</option>
+                        <option value="nodelist_13.json">2014/04/13_Su</option>
+                        <option value="nodelist_14.json">2014/04/14_Mo</option>
+                        <option value="nodelist_15.json">2014/04/15_Tu</option>
+                        <option value="nodelist_16.json">2014/04/16_We</option>
+                        <option value="nodelist_17.json">2014/04/17_Th</option>
+                        <option value="nodelist_18.json">2014/04/18_Fr</option>
+                        <option value="nodelist_19.json">2014/04/19_Sa</option>
+                        <option value="nodelist_20.json">2014/04/20_Su</option>
+                        <option value="nodelist_21.json">2014/04/21_Mo</option>
+                        <option value="nodelist_22.json">2014/04/22_Tu</option>
+                        <option value="nodelist_23.json">2014/04/23_We</option>
+                        <option value="nodelist_24.json">2014/04/24_Th</option>
+                        <option value="nodelist_25.json">2014/04/25_Fr</option>
+                        <option value="nodelist_26.json">2014/04/26_Sa</option>
+                        <option value="nodelist_27.json">2014/04/27_Su</option>
+                        <option value="nodelist_28.json">2014/04/28_Mo</option>
+                        <option value="nodelist_29.json">2014/04/29_Tu</option>
+                        <option value="nodelist_30.json">2014/04/30_We</option>
+                    </select>
+                </div>
+
+                <div class="form-group navbar-right">
+                    <select class="form-control" data-show-icon="true" id="selectTime" >
+                        <option value="H00:H01">H00:H01</option>
+                        <option value="H01:H02">H01:H02</option>
+                        <option value="H02:H03">H02:H03</option>
+                        <option value="H03:H04">H03:H04</option>
+                        <option value="H04:H05">H04:H05</option>
+                        <option value="H05:H06">H05:H06</option>
+                        <option value="H06:H07">H06:H07</option>
+                        <option value="H07:H08">H07:H08</option>
+                        <option value="H08:H09">H08:H09</option>
+                        <option value="H09:H10">H09:H10</option>
+                        <option value="H10:H11">H10:H11</option>
+                        <option value="H11:H12">H11:H12</option>
+                        <option value="H12:H13">H12:H13</option>
+                        <option value="H13:H14">H13:H14</option>
+                        <option value="H14:H15">H14:H15</option>
+                        <option value="H15:H16">H15:H16</option>
+                        <option value="H16:H17">H16:H17</option>
+                        <option value="H17:H18">H17:H18</option>
+                        <option value="H18:H19">H18:H19</option>
+                        <option value="H19:H20">H19:H20</option>
+                        <option value="H20:H21">H20:H21</option>
+                        <option value="H21:H22">H21:H22</option>
+                        <option value="H22:H23">H22:H23</option>
+                        <option value="H23:H24">H23:H24</option>
+                        <option value="H24:H00">H24:H00</option>
+                    </select>
+                </div>
+
+                <div class="form-group navbar-right">
+                    <select class="form-control" data-show-icon="true" id="selectClass" >
+                        <option value="Short Term Visitor">Short Term Visitor</option>
+                        <option value="Home Worker">Home Worker</option>
+                        <option value="Inbound Commuter">Inbound Commuter</option>
+                        <option value="Outbound Commuter">Outbound Commuter</option>
+                        <option value="Resident Worker">Resident Worker</option>
+                        <option value="Long Term Visitor">Long Term Visitor</option>
+                    </select>
+                </div>
+
+                <div class="form-group navbar-right">
+                    <select class="form-control" data-show-icon="true" id="selectPurpose" >
+                        <option value="HW">Home To Work</option>
+                        <option value="HH">Home To Home</option>
+                        <option value="HO">Home To Other</option>
+                        <option value="OW">Other To Work</option>
+                        <option value="OH">Other To Home</option>
+                        <option value="OO">Other To Other</option>
+                        <option value="WW">Work To Work</option>
+                        <option value="WH">Work To Home</option>
+                        <option value="WO">Work To Other</option>
+                    </select>
+                </div>
+
+            </form>
+
+            <form class="navbar-form navbar-right white calendarIcon">
+                <div><span class="glyphicon glyphicon-calendar navbar-right"></span></div>
+            </form>
+
+        </div>
+
     </div>
-</form>
+
+</div>
 
 <div id="vizcontainer">
     <svg style="width:2400px;height:2400px;border:1px lightgray solid;" />
 </div>
+
+<div class="container marginTop" id="vis1">
+</div>
+
 <footer>
     <script>
 
