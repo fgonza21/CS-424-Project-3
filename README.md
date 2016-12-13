@@ -1,7 +1,7 @@
 # CS-424-Project-3
 Visualization Tasks: We created a map, adjaceny matrix, and bar graph to represent Orlando Traffic Zone information. Each visualization provides filters a user can use to select the information one is interested in.  
 
-Each of the visualizations is described in further detail in the Project3.docx file included in this repository.
+Each of the visualizations is described in further detail in the "Project 3.pdf" file included in this repository.
 
 One interesting result was that the outer zones (zones 4000-4005) used in this project are associated with so many more trips than the rest of the zones, that they skew data.  When trying to do data analysis it could be beneficial to use a subset of the data excluding the outer zones, instead of the complete dataset.
 
