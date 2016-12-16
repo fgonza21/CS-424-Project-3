@@ -275,6 +275,7 @@
                 })
 
                 matrix = [];
+                var maxCount = 0;
                 //create all possible edges
                 for (a in nodeList)
                 {
@@ -283,12 +284,16 @@
                         var grid = {zone: nodeList[a]+ "-" + nodeList[b], x: b, y: a, count: 0};
                         if (edgeHash[grid.zone]) {
                             grid.count = edgeHash[grid.zone].Count;
+                            if(grid.count > maxCount)
+                                maxCount = grid.count;
                         }
                         matrix.push(grid);
 
                         grid = {zone: nodeList[b]+ "-" + nodeList[a], x: a, y: b, count: 0};
                         if (edgeHash[grid.zone]) {
                             grid.count = edgeHash[grid.zone].Count;
+                            if(grid.count > maxCount)
+                                maxCount = grid.count;
                         }
                         matrix.push(grid);
                     }
@@ -315,7 +320,7 @@
                         .style("fill", "red")
                         .style("fill-opacity", function (d)
                         {
-                            return d.count * .2
+                            return d.count / maxCount;
                         })
                         .on("mouseover", gridOver)
                 }
@@ -329,6 +334,7 @@
 
                 xAxis = d3.axisTop().scale(nameScale).tickSize(4);
                 yAxis = d3.axisLeft(nameScale).tickSize(4);
+                yRightAxis = d3.axisRight(nameScale).tickSize(4);
                 d3.select("#adjacencyG").append("g").call(xAxis).selectAll("text").style("text-anchor", "end").attr("transform", "translate(-10,-10) rotate(90)");
                 d3.select("#adjacencyG").append("g").call(yAxis);
 
