@@ -320,7 +320,16 @@
                         .style("fill", "red")
                         .style("fill-opacity", function (d)
                         {
-                            return d.count / maxCount;
+                            var min = .1;
+
+                            if(d.count == 0)
+                                return d.count;
+
+                            if(d.count / maxCount < min)
+                                return min;
+                            else
+                                return d.count / maxCount;
+
                         })
                         .on("mouseover", gridOver)
                 }
